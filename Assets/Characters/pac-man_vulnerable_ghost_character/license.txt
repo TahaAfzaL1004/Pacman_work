@@ -1,0 +1,11 @@
+Model Information:
+* title:	Pac-Man vulnerable ghost character
+* source:	https://sketchfab.com/3d-models/pac-man-vulnerable-ghost-character-8aa6c64fa58c45729c18564012515ea7
+* author:	barriosanleum (https://sketchfab.com/barriosanleum)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Pac-Man vulnerable ghost character" (https://sketchfab.com/3d-models/pac-man-vulnerable-ghost-character-8aa6c64fa58c45729c18564012515ea7) by barriosanleum (https://sketchfab.com/barriosanleum) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
