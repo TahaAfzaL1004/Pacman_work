@@ -10,7 +10,7 @@ public class PelletManager : MonoBehaviour
     public float pelletSpacing = 1f;
     public float pelletY = 0.5f;
 
-    public Vector3 pelletCheckSize = new Vector3(0.8f, 1f, 0.8f);
+    public Vector3 pelletCheckSize = new Vector3(1f, 2f, 1f);
 
     public NoPelletZone[] noPelletZones;
 
@@ -64,16 +64,16 @@ public class PelletManager : MonoBehaviour
     }
 
     bool IsNearWall(Vector3 position)
-    {
-        Collider[] colliders = Physics.OverlapBox(
-            position,
-            pelletCheckSize / 2f,
-            Quaternion.identity,
-            wallLayer
-        );
+{
+    Collider[] colliders = Physics.OverlapBox(
+        position,
+        pelletCheckSize / 2f,
+        Quaternion.identity,
+        wallLayer
+    );
 
-        return colliders.Length > 0;
-    }
+    return colliders.Length > 0;
+}
 
     bool IsInsideNoPelletZone(Vector3 position)
     {
