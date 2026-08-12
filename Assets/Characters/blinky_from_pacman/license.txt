@@ -1,0 +1,11 @@
+Model Information:
+* title:	Blinky from Pacman
+* source:	https://sketchfab.com/3d-models/blinky-from-pacman-47c0f24b17c943b790084545b0403047
+* author:	Yo Boy (https://sketchfab.com/jratanatharathorn)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Blinky from Pacman" (https://sketchfab.com/3d-models/blinky-from-pacman-47c0f24b17c943b790084545b0403047) by Yo Boy (https://sketchfab.com/jratanatharathorn) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

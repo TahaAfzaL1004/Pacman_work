@@ -15,9 +15,9 @@ TagManager:
   - Wall
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Player
+  - Ghost
+  - PacmanBarrier
   - 
   - 
   - 
