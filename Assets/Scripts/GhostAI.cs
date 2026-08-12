@@ -3,10 +3,15 @@ using UnityEngine.AI;
 
 public enum GhostState
 {
-    Scatter,
     Chase,
     Frightened,
     Eaten
+}
+
+public enum GhostPersonality
+{
+    Blinky,   // Direct chase
+    Pinky     // Ambush (ahead of player)
 }
 
 public class GhostAI : MonoBehaviour
@@ -16,23 +21,19 @@ public class GhostAI : MonoBehaviour
     public Transform player;
     
     [Header("Visuals")]
-    public GameObject normalModel;      // Drag Blue Ghost model here
-    public GameObject vulnerableModel;    // Drag Vulnerable Ghost model here
-    public Material normalMaterial;     // Optional: for material swap
-    public Material vulnerableMaterial; // Optional: for material swap
+    public GameObject normalModel;
+    public GameObject vulnerableModel;
     
-    [Header("Waypoints")]
-    public Transform scatterCorner;
-    public Transform ghostHouse;
+    [Header("Personality")]
+    public GhostPersonality personality = GhostPersonality.Blinky;
     
     [Header("Settings")]
     public float normalSpeed = 3.5f;
     public float frightenedSpeed = 2f;
     public float eatenSpeed = 5f;
+    public Transform ghostHouse;
     
     [Header("Timers")]
-    public float scatterDuration = 7f;
-    public float chaseDuration = 20f;
     public float frightenedDuration = 10f;
     
     private GhostState currentState;
@@ -40,126 +41,95 @@ public class GhostAI : MonoBehaviour
     
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        if (agent == null)
+            agent = GetComponent<NavMeshAgent>();
         
-        // Make sure normal model shows, vulnerable hides
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        
         ShowNormalModel();
-        
-        EnterState(GhostState.Scatter);
-
-
-        void Start()
-{
-    if (agent == null)
-        agent = GetComponent<NavMeshAgent>();
-    
-    player = GameObject.FindGameObjectWithTag("Player")?.transform;
-    
-    Debug.Log("Normal model active: " + normalModel.activeSelf);
-    Debug.Log("Vulnerable model active: " + vulnerableModel.activeSelf);
-    
-    ShowNormalModel();
-    
-    Debug.Log("After ShowNormalModel - Normal: " + normalModel.activeSelf);
-    Debug.Log("After ShowNormalModel - Vulnerable: " + vulnerableModel.activeSelf);
-    
-    EnterState(GhostState.Scatter);
-}
+        EnterState(GhostState.Chase);
     }
     
     void Update()
     {
-        stateTimer -= Time.deltaTime;
+        if (player == null) return;
         
         switch (currentState)
         {
-            case GhostState.Scatter:
-                agent.SetDestination(scatterCorner.position);
-                if (stateTimer <= 0) EnterState(GhostState.Chase);
-                break;
-                
             case GhostState.Chase:
-                agent.SetDestination(player.position);
-                if (stateTimer <= 0) EnterState(GhostState.Scatter);
+                agent.SetDestination(GetChaseTarget());
+                agent.speed = normalSpeed;
                 break;
                 
             case GhostState.Frightened:
-                // Run away from player
                 Vector3 fleeDirection = transform.position - player.position;
                 Vector3 fleeTarget = transform.position + fleeDirection.normalized * 5f;
                 agent.SetDestination(fleeTarget);
+                agent.speed = frightenedSpeed;
+                
+                stateTimer -= Time.deltaTime;
                 if (stateTimer <= 0) EnterState(GhostState.Chase);
                 break;
                 
             case GhostState.Eaten:
                 agent.SetDestination(ghostHouse.position);
-                // Eyes only - hide body, show eyes or just move fast
+                agent.speed = eatenSpeed;
+                
                 if (Vector3.Distance(transform.position, ghostHouse.position) < 0.5f)
-                {
                     EnterState(GhostState.Chase);
-                }
                 break;
+        }
+    }
+    
+    Vector3 GetChaseTarget()
+    {
+        switch (personality)
+        {
+            case GhostPersonality.Blinky:
+                // Direct chase - go straight to player
+                return player.position;
+                
+            case GhostPersonality.Pinky:
+                // Ambush - go 3 tiles ahead of player
+                Vector3 playerDir = player.forward;
+                return player.position + playerDir * 3f;
+                
+            default:
+                return player.position;
         }
     }
     
     void EnterState(GhostState newState)
     {
         currentState = newState;
+        stateTimer = frightenedDuration;
         
-        switch (newState)
-        {
-            case GhostState.Scatter:
-                agent.speed = normalSpeed;
-                stateTimer = scatterDuration;
-                ShowNormalModel();
-                break;
-                
-            case GhostState.Chase:
-                agent.speed = normalSpeed;
-                stateTimer = chaseDuration;
-                ShowNormalModel();
-                break;
-                
-            case GhostState.Frightened:
-                agent.speed = frightenedSpeed;
-                stateTimer = frightenedDuration;
-                ShowVulnerableModel();
-                break;
-                
-            case GhostState.Eaten:
-                agent.speed = eatenSpeed;
-                // When eaten, ghost turns into "eyes" - hide both models
-                // or show a special "eyes only" model
-                normalModel.SetActive(false);
-                vulnerableModel.SetActive(false);
-                break;
-        }
+        if (newState == GhostState.Chase || newState == GhostState.Eaten)
+            ShowNormalModel();
     }
     
-    void ShowNormalModel()
+   void ShowNormalModel()
     {
         normalModel.SetActive(true);
         vulnerableModel.SetActive(false);
-    }
-    
-    void ShowVulnerableModel()
-    {
-        normalModel.SetActive(false);
-        vulnerableModel.SetActive(true);
     }
     
     public void BecomeFrightened()
     {
         if (currentState != GhostState.Eaten)
         {
-            EnterState(GhostState.Frightened);
+            currentState = GhostState.Frightened;
+            stateTimer = frightenedDuration;
+            normalModel.SetActive(false);
+            vulnerableModel.SetActive(true);
         }
     }
     
     public void GetEaten()
     {
         EnterState(GhostState.Eaten);
+        // Do not disable the models here. EnterState(GhostState.Eaten) 
+        // automatically calls ShowNormalModel() so the ghost remains visible on its return trip.
     }
     
     void OnTriggerEnter(Collider other)
@@ -168,12 +138,22 @@ public class GhostAI : MonoBehaviour
         {
             if (currentState == GhostState.Frightened)
             {
+                // Ghost is vulnerable. Player eats ghost.
                 GetEaten();
-               // GameManager.Instance?.AddScore(200);
+                
+                // Use SendMessage to tell the GameManager to add points. 
+                // This compiles perfectly even if the GameManager doesn't exist in your scene yet.
+                GameObject gameManager = GameObject.Find("GameManager");
+                if (gameManager != null)
+                {
+                    gameManager.SendMessage("AddGhostScore", SendMessageOptions.DontRequireReceiver);
+                }
             }
-            else if (currentState != GhostState.Eaten)
+            else if (currentState == GhostState.Chase)
             {
-               // other.GetComponent<PacmanController>()?.Die();
+                // Ghost is deadly. Ghost kills Player.
+                // Triggers the "Die" method on whatever script your friend attached to Pac-Man.
+                other.gameObject.SendMessage("Die", SendMessageOptions.DontRequireReceiver);
             }
         }
     }
