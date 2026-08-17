@@ -6,6 +6,8 @@ public class Pellet : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            GameManager.Instance.AddScore(10);
+            
             Destroy(gameObject);
         }
     }

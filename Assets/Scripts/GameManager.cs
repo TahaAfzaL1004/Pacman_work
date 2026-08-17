@@ -1,15 +1,22 @@
 using UnityEngine;
-
+using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
     public bool isPowerModeActive;
     private float powerModeTimer;
+    public TextMeshProUGUI scoreText;
+    private int Score = 0;
 
     private void Awake()
     {
         Instance = this;
+    }
+    private void Start()
+    {
+         Score = 0;
+    scoreText.text = "Score: 0";
     }
 
     private void Update()
@@ -25,6 +32,12 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    public void AddScore(int amount)
+{
+    Score += amount;
+    scoreText.text = "Score: " + Score;
+}
 
     public void ActivatePowerMode(float duration)
     {
