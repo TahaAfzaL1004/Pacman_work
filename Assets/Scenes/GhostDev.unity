@@ -1224,21 +1224,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1790050395066975977, guid: e6526052046af5941943d80d7d4d4f54,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1790050395066975977, guid: e6526052046af5941943d80d7d4d4f54,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1790050395066975977, guid: e6526052046af5941943d80d7d4d4f54,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1790050395066975977, guid: e6526052046af5941943d80d7d4d4f54,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.0018859
       objectReference: {fileID: 0}
@@ -1286,42 +1271,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3475857991993778066, guid: e6526052046af5941943d80d7d4d4f54,
-        type: 3}
-      propertyPath: m_TileSize
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 3475857991993778066, guid: e6526052046af5941943d80d7d4d4f54,
-        type: 3}
-      propertyPath: m_VoxelSize
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 3475857991993778066, guid: e6526052046af5941943d80d7d4d4f54,
-        type: 3}
-      propertyPath: m_NavMeshData
-      value: 
-      objectReference: {fileID: 23800000, guid: c05847dad38f5914895ffa55fc2b2f62,
-        type: 2}
-    - target: {fileID: 3475857991993778066, guid: e6526052046af5941943d80d7d4d4f54,
-        type: 3}
-      propertyPath: m_GenerateLinks
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3475857991993778066, guid: e6526052046af5941943d80d7d4d4f54,
-        type: 3}
-      propertyPath: m_MinRegionArea
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3475857991993778066, guid: e6526052046af5941943d80d7d4d4f54,
-        type: 3}
-      propertyPath: m_OverrideTileSize
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3475857991993778066, guid: e6526052046af5941943d80d7d4d4f54,
-        type: 3}
-      propertyPath: m_OverrideVoxelSize
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1607,13 +1556,17 @@ MonoBehaviour:
   pelletPrefab: {fileID: 5541425546193081027, guid: 4e1483b7e95eb0145be7d3bded12e051,
     type: 3}
   maze: {fileID: 1300137427}
+  pelletSpacing: 1
+  pelletY: 0.5
+  navMeshCheckDistance: 1
   wallLayer:
     serializedVersion: 2
     m_Bits: 0
-  pelletSpacing: 1
-  pelletY: 0.5
-  pelletCheckSize: {x: 1, y: 2, z: 1}
+  wallCheckRadius: 0.25
   noPelletZones: []
+  minimumPelletDistance: 0.7
+  corridorCheckDistance: 2
+  corridorCenterTolerance: 0.35
 --- !u!4 &1902521386
 Transform:
   m_ObjectHideFlags: 0
