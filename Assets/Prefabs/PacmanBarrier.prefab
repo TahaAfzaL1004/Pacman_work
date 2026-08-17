@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7532599102592037117}
   - component: {fileID: 1316406553571497889}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PacmanBarrier
   m_TagString: Untagged
   m_Icon: {fileID: 0}

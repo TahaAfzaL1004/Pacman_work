@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 528148623250867322}
+  - component: {fileID: -1585785233794379940}
+  - component: {fileID: 4052701152998229215}
   m_Layer: 0
   m_Name: PowerPelletManager
   m_TagString: Untagged
@@ -31,3 +33,41 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1585785233794379940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5312368036771888422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c6928d35388aa14db9b7139ec2e8c2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PowerPelletManager
+  powerPelletPrefab: {fileID: 5541425546193081027, guid: 685f03170a76e034a91be1ca4be1097a,
+    type: 3}
+  powerPelletPositions:
+  - {fileID: 3537128370978733790, guid: 953b27ac13eedf44285b920f677878d0, type: 3}
+  - {fileID: 964400959607576936, guid: 4cc83da1f4b28b14a8d4a1e9be7f94a4, type: 3}
+  - {fileID: 4076022197663766877, guid: d1dae3fd60eed014dbfe3d44640dded6, type: 3}
+  - {fileID: 6006498582280929899, guid: 31ddd4c6d288ec640ad9c885b6f15db8, type: 3}
+--- !u!114 &4052701152998229215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5312368036771888422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c6928d35388aa14db9b7139ec2e8c2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PowerPelletManager
+  powerPelletPrefab: {fileID: 5541425546193081027, guid: 685f03170a76e034a91be1ca4be1097a,
+    type: 3}
+  powerPelletPositions:
+  - {fileID: 3537128370978733790, guid: 953b27ac13eedf44285b920f677878d0, type: 3}
+  - {fileID: 964400959607576936, guid: 4cc83da1f4b28b14a8d4a1e9be7f94a4, type: 3}
+  - {fileID: 4076022197663766877, guid: d1dae3fd60eed014dbfe3d44640dded6, type: 3}
+  - {fileID: 6006498582280929899, guid: 31ddd4c6d288ec640ad9c885b6f15db8, type: 3}

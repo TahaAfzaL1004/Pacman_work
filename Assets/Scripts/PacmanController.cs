@@ -6,6 +6,7 @@ public class PacmanController : MonoBehaviour
     public float moveSpeed = 5f;
 
     private Rigidbody playerRb;
+    private Vector3 startPosition;
 
     private Vector3 currentDirection = Vector3.zero;
     private Vector3 requestedDirection = Vector3.zero;
@@ -13,6 +14,7 @@ public class PacmanController : MonoBehaviour
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
+        startPosition = transform.position; // Save spawn position for respawning
     }
 
     void Update()
@@ -52,4 +54,26 @@ public class PacmanController : MonoBehaviour
             );
         }
     }
-}
+
+    // Called by GhostAI.cs when a deadly ghost touches Pac-Man
+   public void Die()
+    {
+        Debug.Log("Pac-Man Died!");
+        
+        transform.position = startPosition;
+        if (playerRb != null)
+        {
+            playerRb.linearVelocity = Vector3.zero;
+        }
+
+        currentDirection = Vector3.zero;
+        requestedDirection = Vector3.zero;
+
+        // Cleaned up API call: Uses FindAnyObjectByType instead
+        GhostSpawner spawner = Object.FindAnyObjectByType<GhostSpawner>();
+        if (spawner != null)
+        {
+            spawner.SpawnAllGhosts();
+        }
+    }
+ }

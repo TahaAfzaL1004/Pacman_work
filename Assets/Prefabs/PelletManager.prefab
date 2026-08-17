@@ -47,13 +47,21 @@ MonoBehaviour:
   pelletPrefab: {fileID: 5541425546193081027, guid: 4e1483b7e95eb0145be7d3bded12e051,
     type: 3}
   maze: {fileID: 0}
+  pelletSpacing: 2
+  pelletY: 0.5
+  navMeshCheckDistance: 1
   wallLayer:
     serializedVersion: 2
     m_Bits: 8
-  pelletSpacing: 1
-  pelletY: 0.5
-  pelletCheckSize: {x: 0.47, y: 1, z: 0.47}
+  wallCheckRadius: 0.475
   noPelletZones:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  minimumPelletDistance: 0.7
+  corridorCheckDistance: 2
+  corridorCenterTolerance: 0.35

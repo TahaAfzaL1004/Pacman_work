@@ -40,43 +40,76 @@ public class GhostAI : MonoBehaviour
     private float stateTimer;
     
     void Start()
+{
+    if (agent == null)
+        agent = GetComponent<NavMeshAgent>();
+    
+    player = GameObject.FindGameObjectWithTag("Player")?.transform;
+    
+    if (player == null)
     {
-        if (agent == null)
-            agent = GetComponent<NavMeshAgent>();
-        
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        
-        ShowNormalModel();
-        EnterState(GhostState.Chase);
+        Debug.LogError("CRITICAL: Ghost cannot find GameObject with tag 'Player'!");
+    }
+    else
+    {
+        Debug.Log("Ghost successfully locked onto Player: " + player.name);
     }
     
-    void Update()
+    ShowNormalModel();
+    EnterState(GhostState.Chase);
+}
+    
+   void Update()
     {
         if (player == null) return;
         
         switch (currentState)
         {
             case GhostState.Chase:
-                agent.SetDestination(GetChaseTarget());
-                agent.speed = normalSpeed;
+                if (agent.isOnNavMesh)
+                {
+                    agent.SetDestination(GetChaseTarget());
+                    agent.speed = normalSpeed;
+                }
                 break;
                 
             case GhostState.Frightened:
-                Vector3 fleeDirection = transform.position - player.position;
-                Vector3 fleeTarget = transform.position + fleeDirection.normalized * 5f;
-                agent.SetDestination(fleeTarget);
-                agent.speed = frightenedSpeed;
+                if (agent.isOnNavMesh)
+                {
+                    // Only calculate a new escape route if it arrived or has no path
+                    // We check !pathPending to ensure we don't interrupt its calculation
+                    if (!agent.pathPending && (!agent.hasPath || agent.remainingDistance < 0.5f))
+                    {
+                        // Calculate a point 10 units away from the player
+                        Vector3 fleeDirection = (transform.position - player.position).normalized;
+                        Vector3 fleeTarget = transform.position + fleeDirection * 10f;
+                        
+                        // Force the target to snap to the closest valid NavMesh floor
+                        NavMeshHit hit;
+                        if (NavMesh.SamplePosition(fleeTarget, out hit, 10f, NavMesh.AllAreas))
+                        {
+                            agent.SetDestination(hit.position);
+                        }
+                    }
+                    agent.speed = frightenedSpeed;
+                }
                 
                 stateTimer -= Time.deltaTime;
                 if (stateTimer <= 0) EnterState(GhostState.Chase);
                 break;
                 
             case GhostState.Eaten:
-                agent.SetDestination(ghostHouse.position);
-                agent.speed = eatenSpeed;
-                
-                if (Vector3.Distance(transform.position, ghostHouse.position) < 0.5f)
-                    EnterState(GhostState.Chase);
+                if (ghostHouse != null && agent.isOnNavMesh)
+                {
+                    agent.SetDestination(ghostHouse.position);
+                    agent.speed = eatenSpeed;
+                    
+                    // Strict distance check. No !agent.hasPath shortcuts.
+                    if (Vector3.Distance(transform.position, ghostHouse.position) < 1.5f)
+                    {
+                        EnterState(GhostState.Chase);
+                    }
+                }
                 break;
         }
     }
