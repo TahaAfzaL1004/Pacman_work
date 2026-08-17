@@ -59,7 +59,7 @@ public class GhostAI : MonoBehaviour
     EnterState(GhostState.Chase);
 }
     
-   void Update()
+void Update()
     {
         if (player == null) return;
         

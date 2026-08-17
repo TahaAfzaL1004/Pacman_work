@@ -170,7 +170,7 @@ NavMeshAgent:
   m_Radius: 0.2
   m_Speed: 3.5
   m_Acceleration: 8
-  avoidancePriority: 50
+  avoidancePriority: 49
   m_AngularSpeed: 120
   m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
@@ -220,7 +220,7 @@ MonoBehaviour:
   personality: 0
   normalSpeed: 6
   frightenedSpeed: 5
-  eatenSpeed: 5
+  eatenSpeed: 10
   ghostHouse: {fileID: 4578694158400226546, guid: ba94395acef7df849be927f0fdd6c8d9,
     type: 3}
   frightenedDuration: 10
@@ -264,6 +264,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5811595402167485763}
     m_Modifications:
+    - target: {fileID: -8166918584792671806, guid: a06c90996e5d1114999783e821033617,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8166918584792671806, guid: a06c90996e5d1114999783e821033617,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8166918584792671806, guid: a06c90996e5d1114999783e821033617,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: -6689036041284674117, guid: a06c90996e5d1114999783e821033617,
         type: 3}
       propertyPath: m_Name

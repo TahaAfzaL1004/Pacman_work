@@ -53,11 +53,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Your friend can implement this later
-    /*
     public void AddGhostScore()
     {
-        // Add score logic here
+        // Add 200 points when a ghost is eaten
+        AddScore(200); 
+        Debug.Log("Ghost Eaten! 200 Points.");
     }
-    */
 }
