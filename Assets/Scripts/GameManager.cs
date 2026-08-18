@@ -1,6 +1,10 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.Analytics;
+using UnityEngine.UI;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +21,9 @@ public class GameManager : MonoBehaviour
     [Header("Game End UI")]
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI winText;
+
+    [Header("Restart Button")]
+    public Button RestartButton;
 
     // =========================================================
     // PELLET TRACKING
@@ -54,6 +61,11 @@ public class GameManager : MonoBehaviour
         if (winText != null)
         {
             winText.gameObject.SetActive(false);
+        }
+
+        if (RestartButton != null)
+        {
+            RestartButton.gameObject.SetActive(false);
         }
     }
 
@@ -135,7 +147,7 @@ public class GameManager : MonoBehaviour
         );
 
         // THIS is the only place where winning is checked.
-        if (remainingPellets.Count <= 1)
+        if (remainingPellets.Count == 0)
         {
             YouWin();
         }
@@ -182,6 +194,50 @@ public class GameManager : MonoBehaviour
         {
             scoreText.text = "Score: " + Score;
         }
+    }
+
+
+    // =========================================================
+    // RESTART
+    // =========================================================
+
+    public void RestartGame()
+  {
+    
+        Time.timeScale = 1f;
+        gameEnded = false;
+        isPowerModeActive = false;
+        powerModeTimer = 0f;
+        Score = 0;
+        remainingPellets.Clear();
+        pelletsReady = false;
+
+        if (scoreText != null)
+        {
+            scoreText.text = "Score: 0";
+        }
+
+        if (gameOverText != null)
+        {
+            gameOverText.gameObject.SetActive(false);
+        }
+
+        if (winText != null)
+        {
+            winText.gameObject.SetActive(false);
+        }
+    
+       if (RestartButton != null)
+        {
+            RestartButton.gameObject.SetActive(false);
+        }
+
+       
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+
+        
     }
 
 
@@ -255,7 +311,11 @@ public class GameManager : MonoBehaviour
         {
             winText.gameObject.SetActive(false);
         }
-
+        
+        if (RestartButton != null)
+        {
+            RestartButton.gameObject.SetActive(true);
+        }
         Time.timeScale = 0f;
     }
 
@@ -290,6 +350,15 @@ public class GameManager : MonoBehaviour
             gameOverText.gameObject.SetActive(false);
         }
 
+         if (RestartButton != null)
+        {
+            RestartButton.gameObject.SetActive(true);
+        }
+
         Time.timeScale = 0f;
     }
+
+
+
+    
 }

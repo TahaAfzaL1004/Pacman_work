@@ -8,6 +8,7 @@ TagManager:
   - MazeGeo
   - Ghost
   - PacmanBarrier
+  - Button
   layers:
   - Default
   - TransparentFX

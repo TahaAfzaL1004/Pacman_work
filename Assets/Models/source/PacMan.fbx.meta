@@ -3,7 +3,32 @@ guid: 574c59560592361408048b9f5601cefa
 ModelImporter:
   serializedVersion: 24501
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Boca
+    second: {fileID: 2100000, guid: 52a69b9d67d18354f9d5230d1287cf6b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Esclarea
+    second: {fileID: 2100000, guid: 82b8d115bb47cf241ae61b94777e71be, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Iris
+    second: {fileID: 2100000, guid: ccdb9ed1bbc437b429331e51ed2ac96a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pac
+    second: {fileID: 2100000, guid: 79558c14fd4bfbd409c074ecdea4b32f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pupila
+    second: {fileID: 2100000, guid: cee1e5e8534138647a6edae7243deb71, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
